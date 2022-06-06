@@ -16,8 +16,8 @@ class CreateIngredientProductTable extends Migration
         Schema::create('ingredient_product', function (Blueprint $table) {
             $table->unsignedBigInteger('ingredient_id');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('ingredient_id')->references('id')->on('ingredients');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -28,7 +28,7 @@ class IngredientSeeder extends Seeder
 
         $mozzarella = new Ingredient();
         $mozzarella->name = 'Mozarella';
-        $mozzarella->price = 0.5;
+        $mozzarella->price = 1.5;
         $mozzarella->save();
         $mozzarella->refresh();
 
