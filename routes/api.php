@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\IngredientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::middleware('auth:api')->get('/product', function (Request $request){
+//    return $request->products();
+//});
+
+Route::resource('/products', ProductsController::class);
+Route::resource('/categories', CategoriesController::class);
+Route::resource('/ingredients', IngredientsController::class);
