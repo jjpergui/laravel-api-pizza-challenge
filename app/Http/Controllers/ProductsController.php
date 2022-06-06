@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -34,12 +36,21 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product;
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+
+        return Product::create($request->all());
+
+        /*$product = new Product;
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->picture = $request->input('picture');
         $product->price = $request->input('price');
-        $product->save();
+        $product->save();*/
+
     }
 
     /**
@@ -50,7 +61,14 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        return Product::findOrFail($id)->get();
+        try {
+            $product = Product::findOrFail($id);
+            $product->get();
+            return $product;
+        } catch (\Exception $e) {
+            return response()->json(['message'=>'Product not found!'], 404);
+        }
+//        return Product::findOrFail($id)->get();
     }
 
     /**
@@ -74,11 +92,16 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $product->name = $request->input('name');
-        $product->description = $request->input('description');
-        $product->picture = $request->input('picture');
+        $updates = $request->all();
+        $product->update($updates);
+        return $product;
+
+        /*$product = Product::findOrFail($id);
+//        $product->name = $request->input('name');
+//        $product->description = $request->input('description');
+//        $product->picture = $request->input('picture');
         $product->price = $request->input('price');
-        $product->update();
+        $product->update();*/
     }
 
     /**

@@ -28,3 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('/products', ProductsController::class);
 Route::resource('/categories', CategoriesController::class);
 Route::resource('/ingredients', IngredientsController::class);
+
+/** For future use with Auth */
+/*
+Route::get('/products', ProductsController::class, 'index');
+Route::post('/products', ProductsController::class, 'store');
+Route::put('/products', ProductsController::class, 'update');
+*/
+

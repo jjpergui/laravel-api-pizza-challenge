@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description', 'price', 'picture'];
     protected $hidden = ['created_at', 'updated_at', 'ingredients'];
     protected $casts = [
         'price' => 'float'
@@ -22,22 +22,20 @@ class Product extends Model
     {
         if ($this->ingredients->isNotEmpty()) {
             $ingredients = $this->ingredients->pluck('name')->all();
-//            $ingredient_sum = $this->ingredients->sum('price');
-//            $result = $this->ingredients->sum('price');
-//            return $result;
             return implode(', ', $ingredients);
         }
         return null;
     }
 
-    public function getPriceAttribute() // Add Mutator to previous price
+    public function getPriceAttribute($value) // Add Mutator to previous price
     {
         if ($this->ingredients->isNotEmpty()) {
             $price = $this->ingredients->sum('price');
             $price = $price * 1.5;
             return $price;
+        } else {
+            return $value;
         }
-        return null;
     }
 
     public function getCalculatedPriceAttribute() // Get list of ingredients in this pizza
