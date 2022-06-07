@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\IngredientsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +22,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
 //Route::middleware('auth:api')->get('/product', function (Request $request){
 //    return $request->products();
 //});
 
-Route::resource('/products', ProductsController::class);
-Route::resource('/categories', CategoriesController::class);
-Route::resource('/ingredients', IngredientsController::class);
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::resource('/products', ProductsController::class);
+    Route::resource('/categories', CategoriesController::class);
+    Route::resource('/ingredients', IngredientsController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
 
 /** For future use with Auth */
 /*
