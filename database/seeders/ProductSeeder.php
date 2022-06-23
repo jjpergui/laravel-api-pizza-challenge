@@ -33,6 +33,14 @@ class ProductSeeder extends Seeder
         $product->save();
 
         $product = new Product;
+        $product->name = 'Salmone';
+        $product->description = 'Homemade tomato sauce, mozzarella cheese, parmesan, ricotta & cheddar cheese.';
+        $product->price = 9;
+        $product->picture = 'https://bmpp.com/images/items/pizza/cheese-lovers.png';
+        $product->category_id = $category->id;
+        $product->save();
+
+        $product = new Product;
         $product->name = 'Cinque Fromaggi';
         $product->description = 'Homemade tomato sauce, mozzarella cheese, parmesan, ricotta & cheddar cheese.';
         $product->price = 9;
@@ -41,7 +49,7 @@ class ProductSeeder extends Seeder
         $product->save();
 
         $product = new Product;
-        $product->name = 'Suro Pizza';
+        $product->name = 'Sette';
         $product->description = 'With homemade tomato sauce, mozzarella cheese, Canadian bacon, mushrooms, red onions & fresh cilantro.';
         $product->price = 12;
         $product->picture = 'https://bmpp.com/images/items/pizza/margerhita.png';
